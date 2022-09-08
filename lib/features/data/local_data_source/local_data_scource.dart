@@ -1,9 +1,9 @@
 
-import 'package:my_daily_tase/features/domain/entities/task_entity.dart';
 import 'package:sembast/sembast.dart';
 
-abstract class LocalRepository{
+import '../../domain/entities/task_entity.dart';
 
+abstract class LocalDataSource{
   Future<Database> openDatabase();
   Future<void> addTask(TaskEntity task);
   Future<void> deleteTask(TaskEntity task);
@@ -11,5 +11,4 @@ abstract class LocalRepository{
   Future<void> getTaskNotification(TaskEntity task);
   Future<void> onTaskNotification(TaskEntity task);
   Future<List<TaskEntity>> getAllTaskList();
-
 }
