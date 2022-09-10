@@ -10,25 +10,21 @@ class TaskInitialState extends TaskState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-
 class LoadingState extends TaskState {
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
-
 class SuccessState extends TaskState {
+  final List<TaskEntity> taskData;
 
-  late final List<TaskEntity> taskData;
-
-  SuccessState({required this.taskData})
+  SuccessState({required this.taskData});
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
-
 
 class FailureState extends TaskState {
   @override
