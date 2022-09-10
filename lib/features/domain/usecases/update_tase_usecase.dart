@@ -4,7 +4,7 @@ import '../repositories/local_repository.dart';
 class UpdateTaskUseCase {
   final LocalRepository localRepository;
 
-  UpdateTaskUseCase.name({required this.localRepository});
+  UpdateTaskUseCase({required this.localRepository});
 
   Future<void> call(TaskEntity task) {
     return localRepository.updateTask(task);

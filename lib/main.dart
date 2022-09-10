@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_daily_tase/features/presentation/di/di_container.dart' as sl;
 
-void main() => runApp(const MyApp());
+void main() async {
+  sl.initDI();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            child: Text('Hello Flutter'),
+            child: Text('Hello Flutter by antor'),
           ),
         ),
       ),

@@ -4,7 +4,7 @@ import '../repositories/local_repository.dart';
 class GetTaskNotificationUseCase {
   final LocalRepository localRepository;
 
-  GetTaskNotificationUseCase.name({required this.localRepository});
+  GetTaskNotificationUseCase({required this.localRepository});
 
   Future<void> call(TaskEntity task) {
     return localRepository.getTaskNotification(task);

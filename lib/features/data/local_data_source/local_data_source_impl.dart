@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:my_daily_tase/features/data/local_data_source/local_data_scource.dart';
 import 'package:my_daily_tase/features/data/model/task_model.dart';
 import 'package:my_daily_tase/features/domain/repositories/local_repository.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,7 +12,7 @@ import 'package:path/path.dart';
 
 const String MAP_STORE = "MAP_STORE_TASK";
 
-class LocalDataSourceImpl implements LocalRepository {
+class LocalDataSourceImpl implements LocalDataSource {
   late Completer<Database> _dbOpenCompleter;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

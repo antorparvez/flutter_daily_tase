@@ -20,13 +20,13 @@ class TaskCubit extends Cubit<TaskState> {
   final UpdateTaskUseCase updateTaskUseCase;
 
   TaskCubit(
-      this.addTaskUseCase,
-      this.deleteTaskUseCase,
-      this.getAllTaskUseCase,
-      this.getTaskNotificationUseCase,
-      this.onOffTaskNotificationUseCase,
-      this.openDatabaseUseCase,
-      this.updateTaskUseCase)
+      {required this.addTaskUseCase,
+      required this.deleteTaskUseCase,
+      required this.getAllTaskUseCase,
+      required this.getTaskNotificationUseCase,
+      required this.onOffTaskNotificationUseCase,
+      required this.openDatabaseUseCase,
+      required this.updateTaskUseCase})
       : super(TaskInitialState());
 
   Future<void> addNewTaskCubit({required TaskEntity taskEntity}) async {
