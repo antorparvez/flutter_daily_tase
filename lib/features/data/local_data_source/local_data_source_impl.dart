@@ -1,19 +1,21 @@
 import 'dart:async';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:my_daily_tase/features/data/model/task_model.dart';
 import 'package:my_daily_tase/features/domain/repositories/local_repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import '../../domain/entities/task_entity.dart';
-import 'local_data_scource.dart';
-import 'sembast/sembast.dart';
 import 'package:path/path.dart';
 
 const String MAP_STORE = "MAP_STORE_TASK";
 
 class LocalDataSourceImpl implements LocalRepository {
   late Completer<Database> _dbOpenCompleter;
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   Future<Database> get _db async => _dbOpenCompleter.future;
   final _taskStore = intMapStoreFactory.store(MAP_STORE);
@@ -50,24 +52,54 @@ class LocalDataSourceImpl implements LocalRepository {
     final finder = Finder(sortOrders: [SortOrder("id")]);
     final recordSnapshots = await _taskStore.find(await _db, finder: finder);
 
-    return recordSnapshots.map((task){
+    return recordSnapshots.map((task) {
       final taskData = TaskModel.fromJson(task.value);
       taskData.id = task.key;
       return taskData;
     }).toList();
-
   }
 
   @override
-  Future<void> getTaskNotification(TaskEntity task) {
-    // TODO: implement getTaskNotification
-    throw UnimplementedError();
+  Future<void> getTaskNotification(TaskEntity task) async {
+    if (task.isNotification == false) {
+      final dateTime = DateTime.parse(task.time);
+      final androidNotificationChannel = AndroidNotificationDetails(
+          task.id.toString(), "Daily Task", "This is a test notification",
+          playSound: true,
+          enableLights: true,
+          enableVibration: true,
+          icon: "mipmap/ic_launcher",
+          largeIcon: const DrawableResourceAndroidBitmap("mipmap/ic_launcher"),
+          ticker: "This is a ticker");
+
+      const iosNotificationChannel = IOSNotificationDetails();
+      final notificationDetails = NotificationDetails(
+          android: androidNotificationChannel, iOS: iosNotificationChannel);
+
+      flutterLocalNotificationsPlugin.showDailyAtTime(
+          task.id!,
+          task.title,
+          "It's time for ${task.title}",
+          Time(dateTime.hour, dateTime.minute, 0),
+          notificationDetails);
+    } else {
+      flutterLocalNotificationsPlugin.cancel(task.id!);
+    }
   }
 
   @override
-  Future<void> onTaskNotification(TaskEntity task) {
-    // TODO: implement onTaskNotification
-    throw UnimplementedError();
+  Future<void> onTaskNotification(TaskEntity task) async {
+    final newTask = TaskModel(
+            title: task.title,
+            time: task.time,
+            isCompletedTask: task.isCompletedTask,
+            isNotification: task.isNotification == true ? false : true,
+            colorID: task.colorID,
+            taskType: task.taskType)
+        .toJson();
+
+    final finder = Finder(filter: Filter.byKey(task.id));
+    _taskStore.update(await _db, newTask, finder: finder);
   }
 
   @override
@@ -80,8 +112,17 @@ class LocalDataSourceImpl implements LocalRepository {
   }
 
   @override
-  Future<void> updateTask(TaskEntity task) {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+  Future<void> updateTask(TaskEntity task) async {
+    final newTask = TaskModel(
+            title: task.title,
+            time: task.time,
+            isCompletedTask: task.isCompletedTask == true ? false : true,
+            isNotification: task.isNotification,
+            colorID: task.colorID,
+            taskType: task.taskType)
+        .toJson();
+
+    final finder = Finder(filter: Filter.byKey(task.id));
+    _taskStore.update(await _db, newTask, finder: finder);
   }
 }

@@ -6,7 +6,7 @@ class TaskModel extends TaskEntity {
     required final String title,
     required final String time,
     required final bool isCompletedTask,
-    required final String isNotification,
+    required final bool isNotification,
     required final int colorID,
     required final String taskType,
   }) : super(

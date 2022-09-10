@@ -3,7 +3,7 @@ class TaskEntity {
   final String title;
   final String time;
   final bool isCompletedTask;
-  final String isNotification;
+  final bool isNotification;
   final int colorID;
   final String taskType;
 
