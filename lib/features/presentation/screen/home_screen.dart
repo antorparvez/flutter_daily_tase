@@ -1,9 +1,8 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:my_daily_tase/features/presentation/pages/home_page.dart';
 
-import 'package:my_daily_tase/features/presentation/widgets/theme/style.dart';
-
-import '../utils/hex_to_color.dart';
+import '../pages/complete_task_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
+
+  List<Widget> get _pages => [HomePage(), CompeteTaskPage()];
   final iconList = <IconData>[Icons.home, Icons.task];
 
   @override
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.pink,
           ),
           onPressed: () {}),
-      body: Column(),
+      body: _pages[activeIndex],
     );
   }
 
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       },
     );
-  /*  return  AnimatedBottomNavigationBar.builder(
+    /*  return  AnimatedBottomNavigationBar.builder(
       itemCount: iconList.length,
       tabBuilder: (int index, bool isActive) {
         final color = isActive ? HexColor('#FFA400') : Colors.white;
@@ -89,6 +90,5 @@ class _HomeScreenState extends State<HomeScreen> {
         spreadRadius: 0.5,
         color: HexColor('#FFA400'),
       ),);*/
-
   }
 }
