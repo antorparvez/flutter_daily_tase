@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daily_tase/features/presentation/common/on_generate_route.dart';
 import 'package:my_daily_tase/features/presentation/di/di_container.dart' as sl;
 import 'package:my_daily_tase/features/presentation/screen/home_screen.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.indigoAccent,
       ),
+      onGenerateRoute: OnGenerateRoute.route,
       routes: {
         "/": (context) {
           return HomeScreen();

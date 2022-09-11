@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:my_daily_tase/features/presentation/common/Constants.dart';
 import 'package:my_daily_tase/features/presentation/pages/home_page.dart';
 
 import '../pages/complete_task_page.dart';
@@ -29,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 40,
             color: Colors.pink,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.pushNamed(context, PageConstants.addTaskPageConst);
+          }),
       body: _pages[activeIndex],
     );
   }
