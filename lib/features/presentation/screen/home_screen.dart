@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Icon(
             Icons.add,
             size: 40,
-            color: Colors.pink,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pushNamed(context, PageConstants.addTaskPageConst);
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
       activeIndex: activeIndex,
       gapLocation: GapLocation.center,
       inactiveColor: Colors.blueGrey,
-      activeColor: Colors.pink,
+      activeColor: Colors.blue,
       onTap: (index) {
         setState(() {
           activeIndex = index;
