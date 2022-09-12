@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:my_daily_tase/features/domain/entities/task_entity.dart';
+import 'package:my_daily_tase/features/presentation/cubit/task_cubit.dart';
 import 'package:my_daily_tase/features/presentation/widgets/common.dart';
 
 import '../widgets/theme/style.dart';
@@ -191,6 +195,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     return Expanded(
       child: GestureDetector(
         // onTap: submitNewTask,
+        onTap: summitNewTask,
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -215,5 +220,34 @@ class _AddNewTaskState extends State<AddNewTask> {
         ),
       ),
     );
+  }
+
+  void summitNewTask() {
+    if (_textEditingController.text.isEmpty) {
+      showToastMsg("Please write something");
+      return;
+    } else {
+      BlocProvider.of<TaskCubit>(context).addNewTaskCubit(
+          taskEntity: TaskEntity(
+        title: _textEditingController.text.toString(),
+        time: _selectedTime.toString(),
+        isCompletedTask: false,
+        isNotification: false,
+        colorID: _selectedTaskTypeIndex,
+        taskType: taskTypeList[_selectedTaskTypeIndex],
+      ));
+      showToastMsg("New task saved");
+    }
+  }
+
+  void showToastMsg(String text) {
+    Future.delayed(Duration(seconds: 1), () {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+        msg: text,
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    });
   }
 }

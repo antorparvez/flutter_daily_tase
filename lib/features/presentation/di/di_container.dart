@@ -1,3 +1,4 @@
+
 import 'package:get_it/get_it.dart';
 import 'package:my_daily_tase/features/data/local_data_source/local_data_scource.dart';
 import 'package:my_daily_tase/features/data/local_data_source/local_data_source_impl.dart';
@@ -13,7 +14,7 @@ import '../../domain/usecases/add_task_usecase.dart';
 import '../../domain/usecases/delete_task_usecase.dart';
 import '../../domain/usecases/get_all_tase_usecase.dart';
 
-GetIt sl = GetIt.instance();
+GetIt sl = GetIt.instance;
 
 Future<void> initDI() async {
   //bloc/Cubit
