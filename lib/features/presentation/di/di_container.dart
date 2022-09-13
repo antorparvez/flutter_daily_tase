@@ -29,8 +29,6 @@ Future<void> initDI() async {
       ));
 
   //UseCases
-  sl.registerLazySingleton<OffTaskNotificationUseCase>(
-      () => OffTaskNotificationUseCase(localRepository: sl.call()));
   sl.registerLazySingleton<AddTaskUseCase>(
       () => AddTaskUseCase(localRepository: sl.call()));
   sl.registerLazySingleton<DeleteTaskUseCase>(

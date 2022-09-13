@@ -13,7 +13,7 @@ import 'package:path/path.dart';
 const String MAP_STORE = "MAP_STORE_TASK";
 
 class LocalDataSourceImpl implements LocalDataSource {
-  late Completer<Database> _dbOpenCompleter;
+   Completer<Database> _dbOpenCompleter = Completer();
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
